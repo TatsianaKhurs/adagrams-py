@@ -33,14 +33,14 @@ LETTER_POOL = {
 def draw_letters():
     letters = []
 
-    for letter, count in LETTER_POOL:
+    for letter in LETTER_POOL:
         count = LETTER_POOL[letter]
-        for i in range(count):
+        for letter_index in range(count):
             letters = letters + [letter]
 
     hand = []
 
-    for i in range(10):
+    for letter_index in range(10):
         random_index = randint(0, len(letters) - 1)
 
         random_letter = letters[random_index]
@@ -58,7 +58,44 @@ def draw_letters():
     return hand
 
 def uses_available_letters(word, letter_bank):
-    pass
+    available_letters = []
+
+    for letter in letter_bank:
+        available_letters = available_letters + [letter]
+
+    lowercase = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
+    uppercase = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+
+    for letter in word:
+        current_letter = letter
+
+        for letter_index in range(len(lowercase)):
+            if letter == lowercase[letter_index]:
+                current_letter = uppercase[letter_index]
+
+        found_letter = False
+        found_index = -1
+
+        for letter_index in range(len(available_letters)):
+            if available_letters[letter_index] == current_letter:
+                found_letter = True
+                found_index = letter_index
+                break
+
+        if found_letter == False:
+            return False
+
+        new_letters = []
+
+        for letter_index in range(len(available_letters)):
+            if letter_index != found_index:
+                new_letters = new_letters + [available_letters[letter_index]]
+
+        available_letters = new_letters
+
+    return True
+
+
 
 def score_word(word):
     pass
