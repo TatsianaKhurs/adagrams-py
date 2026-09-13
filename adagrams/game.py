@@ -63,8 +63,8 @@ def uses_available_letters(word, letter_bank):
     for letter in letter_bank:
         available_letters = available_letters + [letter]
 
-    lowercase = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
-    uppercase = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+    lowercase = "abcdefghijklmnopqrstuvwxyz"
+    uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     for letter in word:
         current_letter = letter
@@ -98,7 +98,42 @@ def uses_available_letters(word, letter_bank):
 
 
 def score_word(word):
-    pass
+    score = 0
+    lowercase = "abcdefghijklmnopqrstuvwxyz"
+    uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    for letter in word:
+        current_letter = letter
+
+        for letter_index in range(len(lowercase)):
+            if letter == lowercase[letter_index]:
+                current_letter = uppercase[letter_index]
+
+        if current_letter in "AEIOULNRST":
+            score += 1
+
+        elif current_letter in "DG":
+            score += 2
+
+        elif current_letter in "BCMP":
+            score += 3
+
+        elif current_letter in "FHVWY":
+            score += 4
+
+        elif current_letter in "K":
+            score += 5
+
+        elif current_letter in "JX":
+            score += 8
+
+        elif current_letter in "QZ":
+            score += 10
+
+    if len(word) >= 7:
+        score += 8
+
+    return score
 
 def get_highest_word_score(word_list):
     pass
