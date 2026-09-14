@@ -136,4 +136,24 @@ def score_word(word):
     return score
 
 def get_highest_word_score(word_list):
-    pass
+    best_word = word_list[0]
+    best_score = score_word(best_word)
+
+    for word in word_list:
+        current_score = score_word(word)
+
+        if current_score > best_score:
+            best_word = word
+            best_score = current_score
+
+        elif current_score == best_score:
+            if len(word) == 10 and len(best_word) != 10:
+                best_word = word
+                best_score = current_score
+
+            elif len(word) != 10 and len(best_word) != 10:
+                if len(word) < len(best_word):
+                    best_word = word
+                    best_score = current_score
+
+    return (best_word, best_score)
